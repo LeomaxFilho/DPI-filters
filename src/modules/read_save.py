@@ -49,11 +49,14 @@ def read_image(path : Path):
     'ler imagem'
     im = Image.open(path)
     r, g, b = im.split()
-    x_size, y_size = im.size
+    im_size = im.size
 
-    return r, g, b, im, x_size, y_size
+    return r, g, b, im, im_size
 
 def save_image(r, g, b, path : Path):
     'salvar imagem'
     im = Image.merge('RGB', (r, g, b))
     im.save(path)
+
+def rgb2hex(colour : tuple[int, int, int]):
+    return '#{:02x}{:02x}{:02x}'.format(colour[0], colour[1], colour[2])

@@ -2,11 +2,11 @@
     "function": "Gauss",
     "mask":
         [
-            [1, 2, 1],
-            [0, 0, 0], 
+            [1, 1, 1],
+            [1, 1, 1],
             [1, 2, 1]
         ],
     "stride": 10,
-    "dilatation_rate" : 1,
+    "dilatation_rate" : 2,
     "activation_function" : "ReLu"
 }
