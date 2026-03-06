@@ -48,10 +48,14 @@ def read_json(path : Path):
 def read_image(path : Path):
     'ler imagem'
     im = Image.open(path)
-    r, g, b = im.split()
+    band = im.split()
+    r, g, b = band
+
+    a = (band[3] if len(band) == 4 else None)
+
     im_size = im.size
 
-    return r, g, b, im, im_size
+    return r, g, b, im, im_size, a
 
 def save_image(r, g, b, path : Path):
     'salvar imagem'
