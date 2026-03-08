@@ -1,5 +1,5 @@
 import json
-from path import Path
+from pathlib import Path
 from PIL import Image
 
 def atrous_dilatation(dilatation_rate : int, mask : list[list[int]], mask_size : tuple[int, int]):
@@ -49,7 +49,7 @@ def read_image(path : Path):
     'ler imagem'
     im = Image.open(path)
     band = im.split()
-    r, g, b = band
+    r, g, b = band[:3]
 
     a = (band[3] if len(band) == 4 else None)
 
