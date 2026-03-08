@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from PIL import Image
+import numpy as np
 
 def atrous_dilatation(dilatation_rate : int, mask : list[list[int]], mask_size : tuple[int, int]):
     'faz a dilatacao da mascara de entrada'
@@ -37,7 +38,7 @@ def read_json(path : Path):
 
     dilatation_rate = options['dilatation_rate']
     mask_dilated = atrous_dilatation(dilatation_rate, options['mask'], (len(options['mask']), len(options['mask'][0])))
-    mask = mask_dilated
+    mask = np.array(mask_dilated)
     mask_size = (len(mask), len(mask[0]))
     function = options['function'].lower()
     stride = options['stride']

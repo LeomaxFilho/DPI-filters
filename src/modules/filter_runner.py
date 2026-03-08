@@ -1,11 +1,10 @@
 from pathlib import Path
 
-from modules.correlation import correlation
+from modules.correlation import correlation, to_img
 from modules.read_save import read_image, read_json
-from modules.sobel import sobel
+from modules.sobel import full_axis_sobel, sobel
 
 import os
-import sys
 
 
 def apply_filter(image_path: Path, filter_path: Path):
@@ -13,10 +12,12 @@ def apply_filter(image_path: Path, filter_path: Path):
     r, g, b, _, im_size, a = read_image(image_path)
 
     if function == "sobel":
-        return sobel(r,g,b,im_size,mask,mask_size,stride,activation_function,a=a,)
+        return full_axis_sobel(r, g, b, im_size, mask, mask_size, stride, activation_function, a=a)
+    elif function == "full_sobel":
+        return sobel(r, g, b, im_size, mask, mask_size, stride, activation_function, a=a)
     else:
-        return correlation(r,g,b,im_size,mask,mask_size,stride,activation_function,a=a,)
-
+        im_arr = correlation(r,g,b,im_size,mask,mask_size,stride,activation_function,a=a)
+        return to_img(im_arr)
 
 def run_filter_pipeline():
 

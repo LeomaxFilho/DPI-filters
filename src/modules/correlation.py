@@ -2,7 +2,7 @@ import math
 import numpy as np
 from PIL import Image
 
-def correlation(r, g, b, im_size : tuple[int, int], mask : list[list[int]], mask_size : tuple[int, int], stride : int, activation_function : str, *, a = None) -> Image.Image:
+def correlation(r, g, b, im_size : tuple[int, int], mask : np.ndarray, mask_size : tuple[int, int], stride : int, activation_function : str, *, a = None) -> np.ndarray:
     """ faz a correlacao do filtro com a imagem """
     
     im_x, im_y = im_size
@@ -12,8 +12,7 @@ def correlation(r, g, b, im_size : tuple[int, int], mask : list[list[int]], mask
     out_h = len(range(mask_center_x, im_x - (mask_x - mask_center_x - 1), stride))
     out_w = len(range(mask_center_y, im_y - (mask_y - mask_center_y - 1), stride))
 
-    has_alpha = a is not None
-    output = np.zeros((out_w, out_h, 4 if has_alpha else 3))
+    output = np.zeros((out_w, out_h, 4 if a else 3))
 
     row, col = 0, 0
     
@@ -31,10 +30,10 @@ def correlation(r, g, b, im_size : tuple[int, int], mask : list[list[int]], mask
                     value_b = b.getpixel((i_img - mask_center_x + i_mask, j_img - mask_center_y + j_mask)) * mask[i_mask][j_mask]
                     sum_b += value_b
               
-                    if has_alpha:
+                    if a:
                         value_a = a.getpixel((i_img - mask_center_x + i_mask, j_img - mask_center_y + j_mask)) * mask[i_mask][j_mask]
                         sum_a += value_a
-            if not has_alpha:
+            if not a:
                 output[row, col] = [
                     min(max(sum_r, 0), 255) if activation_function == 'relu' else sum_r,
                     min(max(sum_g, 0), 255) if activation_function == 'relu' else sum_g,
@@ -51,6 +50,10 @@ def correlation(r, g, b, im_size : tuple[int, int], mask : list[list[int]], mask
         col += 1
         row = 0
 
-    im_result = Image.fromarray(output.astype(np.uint8), mode="RGB" if not has_alpha else "RGBA")
+
+    return output
+
+def to_img(arr : np.ndarray) -> Image.Image:
+    im_result = Image.fromarray(arr.astype(np.uint8), mode="RGB" if len(arr[0]) <= 3 else "RGBA")
 
     return im_result
