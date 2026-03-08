@@ -2,17 +2,18 @@ from modules.correlation import to_img
 import numpy as np
 
 def histogram_exp(image_arr : np.ndarray):
-    if len(image_arr[0]) <= 3:
-        r, g, b = np.hsplit(image_arr, 3)
+    if len(image_arr[0][0]) <= 3:
+        r, g, b = np.dsplit(image_arr, 3)
         a = None
     else:
-        r, g, b, a = np.hsplit(image_arr, 4)
+        r, g, b, a = np.dsplit(image_arr, 4)
+        a.fill(255)
 
     r = histogram_exp_band(r)
     g = histogram_exp_band(g)
     b = histogram_exp_band(b)
     
-    bands = np.stack((r, g, b), -1) if not a else np.stack((r, g, b, a), -1)
+    bands = np.dstack((r, g, b)) if a is None else np.dstack((r, g, b, a))
 
     im_result = to_img(bands)
     

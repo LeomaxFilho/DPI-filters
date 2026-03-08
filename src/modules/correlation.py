@@ -4,14 +4,14 @@ from PIL import Image
 
 def correlation(r, g, b, im_size : tuple[int, int], mask : np.ndarray, mask_size : tuple[int, int], stride : int, activation_function : str, *, a = None) -> np.ndarray:
     """ faz a correlacao do filtro com a imagem """
-    
+
     im_x, im_y = im_size
     mask_x, mask_y = mask_size
     mask_center_x, mask_center_y = math.floor(mask_x/2), math.floor(mask_y/2)
 
     out_h = len(range(mask_center_x, im_x - (mask_x - mask_center_x - 1), stride))
     out_w = len(range(mask_center_y, im_y - (mask_y - mask_center_y - 1), stride))
-
+    
     output = np.zeros((out_w, out_h, 4 if a else 3))
 
     row, col = 0, 0
@@ -37,23 +37,22 @@ def correlation(r, g, b, im_size : tuple[int, int], mask : np.ndarray, mask_size
                 output[row, col] = [
                     min(max(sum_r, 0), 255) if activation_function == 'relu' else sum_r,
                     min(max(sum_g, 0), 255) if activation_function == 'relu' else sum_g,
-                    min(max(sum_b, 0), 255) if activation_function == 'relu' else sum_b,
+                    min(max(sum_b, 0), 255) if activation_function == 'relu' else sum_b
                 ]
             else:
                 output[row, col] = [
                     min(max(sum_r, 0), 255) if activation_function == 'relu' else sum_r,
                     min(max(sum_g, 0), 255) if activation_function == 'relu' else sum_g,
                     min(max(sum_b, 0), 255) if activation_function == 'relu' else sum_b,
-                    min(max(sum_a, 0), 255) if activation_function == 'relu' else sum_a,
+                    min(max(sum_a, 0), 255) if activation_function == 'relu' else sum_a
                 ]
             row += 1
         col += 1
         row = 0
 
-
     return output
 
 def to_img(arr : np.ndarray) -> Image.Image:
-    im_result = Image.fromarray(arr.astype(np.uint8), mode="RGB" if len(arr[0]) <= 3 else "RGBA")
+    im_result = Image.fromarray(arr.astype(np.uint8), mode="RGB" if len(arr[0][0]) <= 3 else "RGBA")
 
     return im_result

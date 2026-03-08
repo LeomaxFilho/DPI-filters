@@ -1,12 +1,12 @@
 {
-    "function": "box",
+    "function": "full_sobel",
     "mask":
         [
-            [1, 1, 1],
-            [1, 1, 1],
-            [1, 1, 1]
+            [-1, -2, -1],
+            [0, 0, 0],
+            [1, 2, 1]
         ],
     "stride": 1,
     "dilatation_rate" : 1,
-    "activation_function" : "ReLu"
+    "activation_function" : "coisa"
 }

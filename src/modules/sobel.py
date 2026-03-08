@@ -18,14 +18,13 @@ def sobel(r, g, b, im_size : tuple[int, int], mask : np.ndarray, mask_size : tup
     mask_hor = np.array(mask)
     mask_ver = np.transpose(mask)
 
-    im_sobel_hor = axis_sobel(r, g, b, im_size, mask_hor, mask_size, stride, activation_function, a=a)
-    im_sobel_ver = axis_sobel(r, g, b, im_size, mask_ver, mask_size, stride, activation_function, a=a)
+    arr_im_sobel_hor = axis_sobel(r, g, b, im_size, mask_hor, mask_size, stride, activation_function, a=a)
+    arr_im_sobel_ver = axis_sobel(r, g, b, im_size, mask_ver, mask_size, stride, activation_function, a=a)
 
-    im_sobel_hor_arr = np.asarray(im_sobel_hor)
-    im_sobel_ver_arr = np.asarray(im_sobel_ver)
-
-    im_sobel_arr = np.clip(im_sobel_hor_arr + im_sobel_ver_arr, 0, 255)
+    im_sobel_arr = np.abs(arr_im_sobel_hor) + np.abs(arr_im_sobel_ver)
 
     im_sobel = histogram_exp(im_sobel_arr)
+
+    im_sobel.show()
 
     return im_sobel
