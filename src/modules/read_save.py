@@ -14,7 +14,8 @@ def atrous_dilatation(
 
     Rows, Columns = mask_size
     mask_dilated: list[list[int]] = []
-    zeros = [0 for i in range(Rows + dilatation_rate)]
+    new_cols = Columns + (Columns - 1) * (dilatation_rate - 1)
+    zeros = [0 for i in range(new_cols)]
 
     for row in range(Rows):
         new_row = []

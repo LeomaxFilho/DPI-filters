@@ -37,8 +37,8 @@ def correlation(
                     value_r = (
                         r.getpixel(
                             (
-                                i_img - mask_center_x + i_mask,
-                                j_img - mask_center_y + j_mask,
+                                i_img * stride + i_mask,
+                                j_img * stride + j_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -48,8 +48,8 @@ def correlation(
                     value_g = (
                         g.getpixel(
                             (
-                                i_img - mask_center_x + i_mask,
-                                j_img - mask_center_y + j_mask,
+                                i_img * stride + i_mask,
+                                j_img * stride + j_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -59,8 +59,8 @@ def correlation(
                     value_b = (
                         b.getpixel(
                             (
-                                i_img - mask_center_x + i_mask,
-                                j_img - mask_center_y + j_mask,
+                                i_img * stride + i_mask,
+                                j_img * stride + j_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -71,8 +71,8 @@ def correlation(
                         value_a = (
                             a.getpixel(
                                 (
-                                    i_img - mask_center_x + i_mask,
-                                    j_img - mask_center_y + j_mask,
+                                    i_img * stride + i_mask,
+                                    j_img * stride + j_mask,
                                 )
                             )
                             * mask[i_mask][j_mask]
