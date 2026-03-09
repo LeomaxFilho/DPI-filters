@@ -1,5 +1,5 @@
 {
-    "function": "full_sobel",
+    "function": "sobel",
     "mask":
         [
             [-1, -2, -1],

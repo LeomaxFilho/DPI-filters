@@ -70,6 +70,4 @@ def sobel(
 
     im_sobel = histogram_exp(im_sobel_arr)
 
-    im_sobel.show()
-
     return im_sobel

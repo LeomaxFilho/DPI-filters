@@ -34,11 +34,12 @@ def correlation(
             sum_r, sum_g, sum_b, sum_a = 0, 0, 0, 0
             for i_mask in range(mask_x):
                 for j_mask in range(mask_y):
+
                     value_r = (
                         r.getpixel(
                             (
-                                i_img * stride + i_mask,
-                                j_img * stride + j_mask,
+                                i_img * stride + j_mask,
+                                j_img * stride + i_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -48,8 +49,8 @@ def correlation(
                     value_g = (
                         g.getpixel(
                             (
-                                i_img * stride + i_mask,
-                                j_img * stride + j_mask,
+                                i_img * stride + j_mask,
+                                j_img * stride + i_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -59,8 +60,8 @@ def correlation(
                     value_b = (
                         b.getpixel(
                             (
-                                i_img * stride + i_mask,
-                                j_img * stride + j_mask,
+                                i_img * stride + j_mask,
+                                j_img * stride + i_mask,
                             )
                         )
                         * mask[i_mask][j_mask]
@@ -71,8 +72,8 @@ def correlation(
                         value_a = (
                             a.getpixel(
                                 (
-                                    i_img * stride + i_mask,
-                                    j_img * stride + j_mask,
+                                    i_img * stride + j_mask,
+                                    j_img * stride + i_mask,
                                 )
                             )
                             * mask[i_mask][j_mask]
